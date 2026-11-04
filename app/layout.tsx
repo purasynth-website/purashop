@@ -27,7 +27,6 @@ export const metadata: Metadata = {
     type: "website",
     siteName: ORG_NAME,
     locale: "en_US",
-    images: ["/purasynth-logo.png"],
   },
 };
 

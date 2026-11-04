@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
-import Image from "next/image";
 import { OfferCard } from "@/components/offer-card";
 import { RuoBanner } from "@/components/ruo-banner";
 import { captureFromRequest } from "@/lib/attribution";
@@ -102,20 +101,10 @@ export async function OfferPage({ offer, searchParams }: OfferRouteProps & { off
             of this block. Spacing is tight on phones so the code and the button
             sit above the fold at 375px even inside the Instagram in-app
             browser. */}
-        <section className="px-4 pb-24 pt-7 text-center text-white sm:px-6 sm:pb-28 sm:pt-12">
-          {/* The logo artwork is mid-tone line work on a transparent ground, so
-              it vanishes on navy. A light tile gives it a surface. */}
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-white/90 p-1.5 shadow-lg shadow-ink/40 ring-1 ring-white/50 sm:h-20 sm:w-20 sm:rounded-2xl sm:p-2.5">
-            <Image
-              src="/purasynth-logo.png"
-              alt={ORG_NAME}
-              width={112}
-              height={112}
-              className="h-full w-full object-contain"
-            />
-          </div>
-
-          <p className="mx-auto mt-5 inline-block rounded-full border border-white/30 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-sm sm:mt-8 sm:px-5 sm:py-2 sm:text-xs">
+        {/* No logo on this page (owner, 2026-11-04): the eyebrow pill opens the
+            offer straight away. */}
+        <section className="px-4 pb-24 pt-8 text-center text-white sm:px-6 sm:pb-28 sm:pt-14">
+          <p className="mx-auto inline-block rounded-full border border-white/30 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-sm sm:px-5 sm:py-2 sm:text-xs">
             {copy.eyebrow}
           </p>
           <h1 className="mx-auto mt-4 max-w-md text-[28px] font-bold leading-tight tracking-tight sm:mt-5 sm:text-5xl">
