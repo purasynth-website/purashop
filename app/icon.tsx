@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-/** Favicon: a moss tile with the masthead's initial. Generated at build time. */
+/** Favicon: the ruler mark on a cobalt tile. Generated at build time. */
 export const size = { width: 64, height: 64 };
 export const contentType = "image/png";
 
@@ -14,15 +14,14 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#1b3a2f",
+          background: "#2451d6",
           borderRadius: 14,
-          color: "#eef4f0",
-          fontSize: 40,
-          fontWeight: 700,
-          fontFamily: "Georgia, serif",
         }}
       >
-        M
+        <svg viewBox="0 0 24 24" width="48" height="48">
+          <path d="M4 15.5h16" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round" />
+          <path d="M7 15.5v-4M12 15.5v-7M17 15.5v-4" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round" />
+        </svg>
       </div>
     ),
     size,

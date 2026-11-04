@@ -16,6 +16,15 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
   },
+  // The first version of the series used these paths for a day.
+  async redirects() {
+    return [
+      { source: "/articles", destination: "/primers", permanent: true },
+      { source: "/articles/:slug", destination: "/primers", permanent: true },
+      { source: "/reference", destination: "/tables", permanent: true },
+      { source: "/tools", destination: "/calculators", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -5,7 +5,7 @@ import { Formula } from "@/components/science/structures";
 import { PROTON_MASS, RESIDUES, fmt, normalizeSequence, peptideMass, residue, residueMass } from "@/lib/mass";
 
 /**
- * Peptide mass from a one-letter sequence: unmodified, free termini, the sum of
+ * Sequence mass from one-letter codes: unmodified, free termini, the sum of
  * the residues plus one water. Runs entirely in the browser; nothing is sent
  * anywhere.
  */
@@ -22,8 +22,8 @@ export function PeptideMassCalculator() {
   }, [sequence]);
 
   return (
-    <div className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm sm:p-6">
-      <label htmlFor="sequence" className="block text-xs font-semibold uppercase tracking-[0.18em] text-moss-700">
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+      <label htmlFor="sequence" className="block text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-600">
         Sequence (one-letter codes)
       </label>
       <textarea
@@ -33,10 +33,10 @@ export function PeptideMassCalculator() {
         rows={3}
         spellCheck={false}
         autoCapitalize="characters"
-        className="mt-2 w-full resize-y rounded-xl border border-stone-300 bg-stone-50 px-3 py-2 font-mono text-base uppercase tracking-wider text-moss-900 outline-none focus:border-moss-500 focus:ring-2 focus:ring-moss-200"
+        className="mt-1 w-full resize-y rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-base uppercase tracking-wider text-navy-900 outline-none focus:border-cobalt-600 focus:ring-2 focus:ring-cobalt-100"
         placeholder="e.g. GAG"
       />
-      <p className="mt-2 text-xs text-stone-500">
+      <p className="mt-1 text-xs text-slate-500">
         Spaces, digits and dashes are ignored. {sequence.length} residue{sequence.length === 1 ? "" : "s"}.
       </p>
 
@@ -47,26 +47,26 @@ export function PeptideMassCalculator() {
       )}
 
       {result && (
-        <dl className="mt-5 grid gap-3 sm:grid-cols-2">
-          <div className="rounded-xl bg-moss-50 px-4 py-3 ring-1 ring-moss-100">
-            <dt className="text-[11px] font-semibold uppercase tracking-[0.16em] text-moss-700">Monoisotopic mass</dt>
-            <dd className="mt-1 font-mono text-2xl font-semibold tabular-nums text-moss-900">
-              {fmt(result.mono, 5)} <span className="text-sm font-normal text-stone-600">Da</span>
+        <dl className="mt-6 grid gap-3 sm:grid-cols-2">
+          <div className="rounded-xl bg-navy-900 px-4 py-3 text-white">
+            <dt className="text-[11px] font-semibold uppercase tracking-[0.16em] text-cobalt-200">Monoisotopic mass</dt>
+            <dd className="mt-1 font-mono text-3xl font-semibold tabular-nums">
+              {fmt(result.mono, 5)} <span className="text-base font-normal text-slate-300">Da</span>
             </dd>
           </div>
-          <div className="rounded-xl bg-moss-50 px-4 py-3 ring-1 ring-moss-100">
-            <dt className="text-[11px] font-semibold uppercase tracking-[0.16em] text-moss-700">Average mass</dt>
-            <dd className="mt-1 font-mono text-2xl font-semibold tabular-nums text-moss-900">
-              {fmt(result.average, 3)} <span className="text-sm font-normal text-stone-600">Da</span>
+          <div className="rounded-xl bg-cobalt-50 px-4 py-3 ring-1 ring-cobalt-100">
+            <dt className="text-[11px] font-semibold uppercase tracking-[0.16em] text-cobalt-700">Average mass</dt>
+            <dd className="mt-1 font-mono text-2xl font-semibold tabular-nums text-navy-900">
+              {fmt(result.average, 3)} <span className="text-sm font-normal text-slate-600">Da</span>
             </dd>
           </div>
-          <div className="rounded-xl bg-stone-50 px-4 py-3 ring-1 ring-stone-200">
-            <dt className="text-[11px] font-semibold uppercase tracking-[0.16em] text-stone-600">[M+H]+ (monoisotopic)</dt>
-            <dd className="mt-1 font-mono text-lg tabular-nums text-moss-900">{fmt(result.mono + PROTON_MASS, 5)}</dd>
+          <div className="rounded-xl bg-slate-50 px-4 py-3 ring-1 ring-slate-200">
+            <dt className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-600">[M+H]+ (monoisotopic)</dt>
+            <dd className="mt-1 font-mono text-lg tabular-nums text-navy-900">{fmt(result.mono + PROTON_MASS, 5)}</dd>
           </div>
-          <div className="rounded-xl bg-stone-50 px-4 py-3 ring-1 ring-stone-200">
-            <dt className="text-[11px] font-semibold uppercase tracking-[0.16em] text-stone-600">Molecular formula</dt>
-            <dd className="mt-1 font-mono text-lg text-moss-900">
+          <div className="rounded-xl bg-slate-50 px-4 py-3 ring-1 ring-slate-200">
+            <dt className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-600">Molecular formula</dt>
+            <dd className="mt-1 font-mono text-lg text-navy-900">
               <Formula>{result.formula}</Formula>
             </dd>
           </div>
@@ -75,7 +75,7 @@ export function PeptideMassCalculator() {
 
       {result && counts.length > 0 && (
         <table className="mt-5 w-full text-left text-sm">
-          <thead className="text-xs uppercase tracking-wider text-stone-500">
+          <thead className="text-xs uppercase tracking-wider text-slate-500">
             <tr>
               <th className="py-1 font-semibold">Residue</th>
               <th className="py-1 font-semibold">Count</th>
@@ -83,13 +83,13 @@ export function PeptideMassCalculator() {
               <th className="py-1 font-semibold">Subtotal</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-stone-100">
+          <tbody className="divide-y divide-slate-100">
             {counts.map((r) => {
               const m = residueMass(r.one)!;
               return (
                 <tr key={r.one}>
-                  <td className="py-1.5 text-stone-800">
-                    {residue(r.one)!.name} <span className="text-stone-500">({r.three})</span>
+                  <td className="py-1.5 text-slate-800">
+                    {residue(r.one)!.name} <span className="text-slate-500">({r.three})</span>
                   </td>
                   <td className="py-1.5 font-mono tabular-nums">{r.n}</td>
                   <td className="py-1.5 font-mono tabular-nums">{fmt(m.mono, 5)}</td>
@@ -98,7 +98,7 @@ export function PeptideMassCalculator() {
               );
             })}
             <tr>
-              <td className="py-1.5 text-stone-800">Water (termini)</td>
+              <td className="py-1.5 text-slate-800">Water (termini)</td>
               <td className="py-1.5 font-mono tabular-nums">1</td>
               <td className="py-1.5 font-mono tabular-nums">18.01056</td>
               <td className="py-1.5 font-mono tabular-nums">18.01056</td>

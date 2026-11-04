@@ -1,27 +1,38 @@
 import Link from "next/link";
-import { formatDate, type Article } from "@/lib/blog";
+import { articlePath, formatDate, padNumber, type Article } from "@/lib/blog";
 
-/** One entry in a reading list: kicker, title, and the explainer line. */
-export function ArticleListItem({ article, showDate = false }: { article: Article; showDate?: boolean }) {
+/** A primer as a numbered card: the number, the topic, the title, the dek. */
+export function PrimerCard({ article, compact = false }: { article: Article; compact?: boolean }) {
   return (
-    <li className="border-b border-stone-200 py-4 first:pt-0 last:border-b-0">
-      <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-moss-700">{article.category}</p>
-      <Link href={`/articles/${article.slug}`} className="group mt-1 block">
-        <span className="font-display text-lg font-semibold leading-snug tracking-tight text-moss-900 group-hover:underline group-hover:decoration-moss-300 group-hover:underline-offset-4">
-          {article.title}
-        </span>
+    <li className="group relative rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-colors hover:border-cobalt-200">
+      <div className="flex items-center justify-between">
+        <span className="font-mono text-xs font-semibold text-cobalt-700">{padNumber(article.number)}</span>
+        <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-600">{article.topic}</span>
+      </div>
+      <Link href={articlePath(article.slug)} className="mt-3 block after:absolute after:inset-0 after:content-['']">
+        <span className="font-display text-lg font-bold leading-snug tracking-tight text-navy-900 group-hover:text-cobalt-700">{article.title}</span>
       </Link>
-      <p className="mt-1.5 text-xs text-stone-500">
-        <span className="font-semibold text-stone-700">Explainer</span>
-        <span className="mx-1.5">·</span>
-        {article.readMinutes} min read
-        {showDate && (
-          <>
-            <span className="mx-1.5">·</span>
-            {formatDate(article.updated)}
-          </>
-        )}
+      {!compact && <p className="mt-2 text-sm leading-relaxed text-slate-600">{article.dek}</p>}
+      <p className="mt-3 text-xs text-slate-500">
+        {article.readMinutes} min · {formatDate(article.updated)}
       </p>
+    </li>
+  );
+}
+
+/** A primer as one row in a list. */
+export function PrimerRow({ article }: { article: Article }) {
+  return (
+    <li className="flex gap-4 border-b border-slate-200 py-3 last:border-b-0">
+      <span className="w-6 shrink-0 pt-0.5 font-mono text-xs font-semibold text-cobalt-700">{padNumber(article.number)}</span>
+      <div>
+        <Link href={articlePath(article.slug)} className="font-display text-base font-bold leading-snug tracking-tight text-navy-900 hover:text-cobalt-700">
+          {article.title}
+        </Link>
+        <p className="mt-0.5 text-xs text-slate-500">
+          {article.readMinutes} min · {formatDate(article.updated)}
+        </p>
+      </div>
     </li>
   );
 }

@@ -17,25 +17,24 @@
   /* Near-black navy: the offer page's canvas and primary buttons */
   --color-ink: #0b1020;
 
-  /* The reading room: warm paper and a moss green */
-  --color-paper: #f6f5f1;
-  --color-moss-50: #eef4f0;
-  --color-moss-100: #dbe8e0;
-  --color-moss-200: #b9d3c4;
-  --color-moss-300: #8fb8a3;
-  --color-moss-400: #5f977f;
-  --color-moss-500: #3f7a62;
-  --color-moss-700: #2a5a46;
-  --color-moss-900: #1b3a2f;
+  /* The primer series: cool white, deep navy headings, a cobalt accent and an amber highlight */
+  --color-navy-900: #111c3a;
+  --color-navy-800: #1a2a55;
+  --color-cobalt-50: #eef3ff;
+  --color-cobalt-100: #dbe5ff;
+  --color-cobalt-200: #b7c9ff;
+  --color-cobalt-600: #2451d6;
+  --color-cobalt-700: #1c3fae;
+  --color-cobalt-800: #17338a;
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-source-serif);
+  --font-display: var(--font-space-grotesk);
 }
 
 :root {
-  --background: #f6f5f1;
-  --foreground: #1c1917;
+  --background: #f8fafc;
+  --foreground: #0f172a;
 }
 
 html {
@@ -49,8 +48,23 @@ body {
 }
 
 ::selection {
-  background: var(--color-moss-100);
-  color: var(--color-moss-900);
+  background: var(--color-cobalt-100);
+  color: var(--color-navy-900);
+}
+
+/* Faint graph paper behind the hero and the worked example. */
+.grid-paper {
+  background-image:
+    linear-gradient(to right, rgb(15 23 42 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(15 23 42 / 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.grid-paper-dark {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 /* Prevent iOS Safari from auto-zooming when a form control under 16px is focused. */
