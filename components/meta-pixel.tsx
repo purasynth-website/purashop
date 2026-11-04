@@ -22,8 +22,8 @@ import Script from "next/script";
  */
 const META_PIXEL_IDS = ["1770584240889402", "863857110028263"] as const;
 
-/** The only routes that load the pixel: the offer page the ads land on. */
-const PIXEL_PATHS = new Set(["/"]);
+/** The only route that loads the pixel: the offer page. The reading room is pixel-free. */
+const PIXEL_PATHS = new Set(["/offer"]);
 
 export function MetaPixel() {
   const pathname = usePathname();

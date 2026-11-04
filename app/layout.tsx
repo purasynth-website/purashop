@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
-import { ORG_NAME, SITE_DOMAIN, SITE_URL } from "@/lib/site";
+import { BLOG_DESCRIPTION, BLOG_NAME, BLOG_TAGLINE } from "@/lib/blog";
+import { SITE_URL } from "@/lib/site";
 import { AttributionCapture } from "@/components/attribution-capture";
 import { MetaPixel } from "@/components/meta-pixel";
 
@@ -15,17 +16,21 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const sourceSerif = Source_Serif_4({
+  variable: "--font-source-serif",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${ORG_NAME} — ${SITE_DOMAIN}`,
-    template: `%s — ${ORG_NAME}`,
+    default: `${BLOG_NAME} — ${BLOG_TAGLINE}`,
+    template: `%s — ${BLOG_NAME}`,
   },
-  description:
-    "Research-grade peptides and reference materials for laboratory research. Research Use Only.",
+  description: BLOG_DESCRIPTION,
   openGraph: {
     type: "website",
-    siteName: ORG_NAME,
+    siteName: BLOG_NAME,
     locale: "en_US",
   },
 };
@@ -36,13 +41,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col bg-ink text-white">
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${sourceSerif.variable} h-full antialiased`}>
+      <body className="flex min-h-full flex-col bg-paper text-stone-900">
         {children}
         {/* Root layout, not the page: the landing URL's parameters only exist on first paint. */}
         <AttributionCapture />
-        {/* Every ad lands on this domain, so the Landing Page View has to be
-            recorded here — on the store it would already be one click too late. */}
+        {/* Loads on the offer page only — see components/meta-pixel.tsx. */}
         <MetaPixel />
       </body>
     </html>
