@@ -11,8 +11,8 @@ const NAV = [
 export function SiteHeader() {
   return (
     <header className="border-b border-stone-200 bg-paper/90 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <Link href="/" className="flex items-baseline gap-2">
+      <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-6">
+        <Link href="/" className="flex items-baseline gap-2 whitespace-nowrap">
           <span className="font-display text-xl font-bold uppercase tracking-tight text-moss-900 sm:text-2xl">{BLOG_NAME}</span>
           <span aria-hidden="true" className="text-moss-400">/</span>
           <span className="hidden text-[10px] font-semibold uppercase leading-3 tracking-[0.18em] text-stone-500 sm:block">
