@@ -76,7 +76,7 @@ describe("captureAttribution → the claim link", () => {
   it("an ad opened inside Instagram with NOTHING on the link still reaches the store as instagram", () => {
     const url = visit({ ua: INSTAGRAM });
     expect(url.searchParams.get("utm_source")).toBe("instagram");
-    expect(url.searchParams.get("promo")).toBe("SPECIAL20");
+    expect(url.searchParams.get("promo")).toBe("SPECIAL25");
     expect(url.searchParams.get("utm_medium")).toBe("offer-page");
   });
 
@@ -158,7 +158,7 @@ describe("captureFromRequest — the same capture, done on the server while rend
   it("puts the platform into the claim link in the SERVER-RENDERED html", () => {
     const url = new URL(buildClaimUrl(SPECIAL20_OFFER, captureFromRequest({}, null, INSTAGRAM), { live: true }));
     expect(url.searchParams.get("utm_source")).toBe("instagram");
-    expect(url.searchParams.get("promo")).toBe("SPECIAL20");
+    expect(url.searchParams.get("promo")).toBe("SPECIAL25");
 
     const clicked = new URL(buildClaimUrl(SPECIAL20_OFFER, captureFromRequest({ fbclid: "FB9" }, null, INSTAGRAM), { live: true }));
     expect(clicked.searchParams.get("fbclid")).toBe("FB9");

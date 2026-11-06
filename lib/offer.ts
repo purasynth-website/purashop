@@ -68,7 +68,8 @@ export type Offer = OfferCopy &
   );
 
 /**
- * The store's November Sale (owner, 2026-11-02): code SPECIAL20 — 20% off
+ * The store's November Sale (owner, 2026-11-02): code SPECIAL20 — 20% off —
+ * raised on 2026-11-06 to code SPECIAL25, 25% off (the internal name stays) —
  * sitewide, stacking in full with Buy 2, Get 1 Free: every two single vials
  * (one of them above $49.99 — $50 or more) earn a free single vial $49.99 or
  * under, up to 3 free per order; 5/10-packs, stacks and Recon Water aren't
@@ -76,18 +77,18 @@ export type Offer = OfferCopy &
  * SPECIAL20_SALE): Nov 3 00:00 to Nov 8 11:59:59 PM Pacific (PST).
  */
 export const SPECIAL20_OFFER: Offer = {
-  code: "SPECIAL20",
-  percent: 20,
+  code: "SPECIAL25",
+  percent: 25,
   /** Nov 8 2026, 23:59:59 Pacific (PST, UTC-8) — the same instant as SPECIAL20_SALE.endsAt on the store. */
   endsAt: Date.UTC(2026, 10, 9, 7, 59, 59),
   endsAtZone: "America/Los_Angeles",
   eyebrow: "November Sale",
   headline: "Your deal is ready",
-  subheadline: "20% off + Buy 2, Get 1 Free",
+  subheadline: "25% off + Buy 2, Get 1 Free",
   bonus: "Add 2 vials (at least one $50 or more) and pick a third vial $49.99 or under, free — up to 3 per order",
   blurb:
     "Copy the code — it applies itself at checkout and stacks in full with the free vial. Packs, stacks and Recon Water aren't included.",
-  cta: "Claim 20% off + Buy 2, Get 1 Free",
+  cta: "Claim 25% off + Buy 2, Get 1 Free",
   destinationPath: "/products",
 };
 

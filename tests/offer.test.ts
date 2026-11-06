@@ -13,12 +13,12 @@ import {
 
 const offer = SPECIAL20_OFFER as Offer & { code: string };
 
-describe("buildClaimUrl — SPECIAL20", () => {
+describe("buildClaimUrl — SPECIAL25 (the November Sale's code since 2026-11-06)", () => {
   it("sends the visitor to the store with the code the landing capture reads", () => {
     const url = new URL(buildClaimUrl(offer));
     expect(url.origin).toBe(STORE_ORIGIN);
     expect(url.pathname).toBe(offer.destinationPath);
-    expect(url.searchParams.get("promo")).toBe("SPECIAL20");
+    expect(url.searchParams.get("promo")).toBe("SPECIAL25");
     expect(offer.code).toMatch(/^[A-Z0-9_-]{1,40}$/);
   });
 
@@ -27,7 +27,7 @@ describe("buildClaimUrl — SPECIAL20", () => {
     expect(BRIDGE_SOURCE).toBe("purasynth.shop");
     expect(url.searchParams.get("utm_source")).toBe("purasynth.shop");
     expect(url.searchParams.get("utm_medium")).toBe("offer-page");
-    expect(url.searchParams.get("utm_campaign")).toBe("special20");
+    expect(url.searchParams.get("utm_campaign")).toBe("special25");
   });
 
   it("lets the visitor's own campaign tags win and forwards ad click ids", () => {
@@ -36,10 +36,10 @@ describe("buildClaimUrl — SPECIAL20", () => {
     );
     expect(url.searchParams.get("utm_source")).toBe("instagram");
     expect(url.searchParams.get("utm_medium")).toBe("bio");
-    expect(url.searchParams.get("utm_campaign")).toBe("special20");
+    expect(url.searchParams.get("utm_campaign")).toBe("special25");
     expect(url.searchParams.get("fbclid")).toBe("abc123");
     expect(url.searchParams.get("gclid")).toBe("g-1");
-    expect(url.searchParams.get("promo")).toBe("SPECIAL20");
+    expect(url.searchParams.get("promo")).toBe("SPECIAL25");
   });
 
   it("ignores empty values and encodes safely", () => {
@@ -62,13 +62,13 @@ describe("the November Sale offer", () => {
   });
 
   it("names both halves of the deal and the gate", () => {
-    expect(offer.percent).toBe(20);
-    expect(offer.subheadline).toBe("20% off + Buy 2, Get 1 Free");
+    expect(offer.percent).toBe(25);
+    expect(offer.subheadline).toBe("25% off + Buy 2, Get 1 Free");
     expect(offer.bonus).toContain("$50 or more");
     expect(offer.bonus).toContain("$49.99 or under");
     expect(offer.bonus).toContain("up to 3 per order");
     expect(offer.blurb).toContain("Recon Water");
-    expect(offerCampaign(offer)).toBe("special20");
+    expect(offerCampaign(offer)).toBe("special25");
   });
 
   it("ends with the store's sale: Nov 8 2026, 11:59:59 PM Pacific", () => {
