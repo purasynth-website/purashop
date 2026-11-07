@@ -41,8 +41,13 @@
 
 /** Master switch: false renders nothing at all (no tag, no guard). */
 export const TRAFFIC_SHIELD_ENABLED = true;
-/** false = tag present, check answered `none` locally (installed but inert). */
-export const TRAFFIC_SHIELD_ACTIVE = true;
+/**
+ * false = tag present, check answered `none` locally (installed but inert).
+ * Paused by the owner on 2026-11-07 ("pause it on the .shop website for now as
+ * well"); this and purasynth.com go active together on the contractor's
+ * go-ahead.
+ */
+export const TRAFFIC_SHIELD_ACTIVE = false;
 
 const SHIELD_SRC = "https://tscdn.ink/shield.js";
 const SHIELD_API = "https://logicts.ink";
