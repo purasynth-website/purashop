@@ -1,29 +1,34 @@
+import { TRAFFIC_SHIELD_CID, TRAFFIC_SHIELD_UID } from "@/lib/traffic-shield";
+
 /**
- * TrafficShield — the ads contractor's traffic filter, campaign tH5Bq3wpDP.
+ * TrafficShield, the ads contractor's traffic filter, campaign tH5Bq3wpDP.
  *
- * Owner, 2026-11-07: "put the code on both the websites" — this site and
- * purasynth.com. The <script> below is the exact "JS CDN" tag from the
- * TrafficShield dashboard, and the dashboard's "Verify Installation" fetches
- * the page looking for it, so it stays a literal tag in the HTML. It is
- * `defer` where the dashboard's tag says `async`: React hoists an async
- * script to the very top of <head>, above the inline guard below, while a
- * deferred script stays where it is rendered and runs only after the document
- * is parsed — so the guard, which runs at parse time, is always in place
- * first.
+ * Owner, 2026-11-07: "put the code on both the websites", this site and
+ * purasynth.com. Two pieces, mounted by app/layout.tsx:
+ *
+ *   <TrafficShieldGuard /> in <head>: an inline script, see below.
+ *   <TrafficShieldTag />   first thing in <body>: the dashboard's "JS CDN" tag
+ *     byte for byte, written as raw HTML so React can neither rewrite its
+ *     attributes (it renders async as async="") nor hoist it above the
+ *     guard. The dashboard's "Verify Installation" looks for that exact tag;
+ *     on 2026-11-08 the contractor reported "I dont see it loaded" while a
+ *     React-rendered defer version was live. The inline guard executes while
+ *     the parser is still in <head>, before the body's script element even
+ *     exists, so it is always in place first. proxy.ts answers the vendor's
+ *     verify query parameter with the campaign id, as their PHP file does.
  *
  * What shield.js does (read on 2026-11-07; 4 KB, unminified): on every page
  * load it POSTs {userAgent, language, referrer, url} to logicts.ink and obeys
- * the reply — `redirection` sets window.location to the reply's url, `zrc`
+ * the reply: `redirection` sets window.location to the reply's url, `zrc`
  * swaps the document body for the reply's content, `none` does nothing. The
  * campaign server decides who is a bot; a blocked visitor is answered with a
  * redirect to the campaign's safe page (https://www.purasynth.shop/), an
  * allowed one with a redirect to the money page (purasynth.com, per the
  * contractor), and a visitor already on the safe page's root with `none`.
  *
- * The inline guard in front of the tag exists because of two things in the
- * vendor script:
- *   1. every failure ends in alert("A system error occurred.") — a network
- *      error, an ad blocker, a non-JSON reply — and a `status: "error"` reply
+ * The guard exists because of two things in the vendor script:
+ *   1. every failure ends in alert("A system error occurred."), a network
+ *      error, an ad blocker, a non-JSON reply, and a `status: "error"` reply
  *      alerts the vendor's message to the visitor. The guard turns all of
  *      those into a `none` reply.
  *   2. it follows any redirect it is given, including one to the site it is
@@ -44,14 +49,15 @@ export const TRAFFIC_SHIELD_ENABLED = true;
 /**
  * false = tag present, check answered `none` locally (installed but inert).
  * Paused by the owner on 2026-11-07, switched on 2026-11-08 after the
- * contractor's go-ahead ("im ready when you post it" → owner: "we can push it").
+ * contractor's go-ahead ("im ready when you post it"; owner: "we can push it").
  */
 export const TRAFFIC_SHIELD_ACTIVE = true;
 
 const SHIELD_SRC = "https://tscdn.ink/shield.js";
 const SHIELD_API = "https://logicts.ink";
-const SHIELD_UID = "iBC8eGA82S";
-const SHIELD_CID = "tH5Bq3wpDP";
+
+/** The dashboard's tag, byte for byte. */
+const VENDOR_TAG = `<script async src="${SHIELD_SRC}" data-uid="${TRAFFIC_SHIELD_UID}" data-cid="${TRAFFIC_SHIELD_CID}"></script>`;
 
 /** Path prefixes where the check is answered `none` locally. None on this site. */
 const SKIP_PATHS: readonly string[] = [];
@@ -77,12 +83,14 @@ if(host(t.host)===host(location.host)||hops()>3)return none();}
 return json(j);}).catch(none);};
 }catch(e){}})();`;
 
-export function TrafficShield() {
+/** The inline guard; goes in <head>, ahead of everything. */
+export function TrafficShieldGuard() {
   if (!TRAFFIC_SHIELD_ENABLED) return null;
-  return (
-    <>
-      <script dangerouslySetInnerHTML={{ __html: GUARD }} />
-      <script defer src={SHIELD_SRC} data-uid={SHIELD_UID} data-cid={SHIELD_CID} />
-    </>
-  );
+  return <script dangerouslySetInnerHTML={{ __html: GUARD }} />;
+}
+
+/** The vendor's tag, exactly as the dashboard prints it; goes first in <body>. */
+export function TrafficShieldTag() {
+  if (!TRAFFIC_SHIELD_ENABLED) return null;
+  return <div hidden dangerouslySetInnerHTML={{ __html: VENDOR_TAG }} />;
 }

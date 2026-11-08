@@ -5,7 +5,7 @@ import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE } from "@/lib/blog";
 import { SITE_URL } from "@/lib/site";
 import { AttributionCapture } from "@/components/attribution-capture";
 import { MetaPixel } from "@/components/meta-pixel";
-import { TrafficShield } from "@/components/traffic-shield";
+import { TrafficShieldGuard, TrafficShieldTag } from "@/components/traffic-shield";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,10 +44,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} h-full antialiased`}>
       <head>
-        {/* The ads contractor's traffic filter, on every page of this site — see components/traffic-shield.tsx. */}
-        <TrafficShield />
+        {/* The ads contractor's traffic filter: the guard here, the vendor tag first in <body>; see components/traffic-shield.tsx. */}
+        <TrafficShieldGuard />
       </head>
       <body className="flex min-h-full flex-col bg-slate-50 text-slate-900">
+        <TrafficShieldTag />
         {children}
         {/* Root layout, not the page: the landing URL's parameters only exist on first paint. */}
         <AttributionCapture />
