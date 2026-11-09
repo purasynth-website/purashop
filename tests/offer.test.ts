@@ -71,11 +71,11 @@ describe("the November Sale offer", () => {
     expect(offerCampaign(offer)).toBe("special25");
   });
 
-  it("ends with the store's sale: Nov 8 2026, 11:59:59 PM Pacific", () => {
-    expect(offer.endsAt).toBe(Date.UTC(2026, 10, 9, 7, 59, 59));
-    expect(offerEndsLabel(offer)).toBe("November 8");
-    expect(isOfferLive(offer, Date.UTC(2026, 10, 9, 7, 59, 59))).toBe(true);
-    expect(isOfferLive(offer, Date.UTC(2026, 10, 9, 8, 0, 0))).toBe(false);
+  it("ends with the store's code rows: Nov 10 2026, 11:59:59 PM Pacific (extended from Nov 8)", () => {
+    expect(offer.endsAt).toBe(Date.UTC(2026, 10, 11, 7, 59, 59));
+    expect(offerEndsLabel(offer)).toBe("November 10");
+    expect(isOfferLive(offer, Date.UTC(2026, 10, 11, 7, 59, 59))).toBe(true);
+    expect(isOfferLive(offer, Date.UTC(2026, 10, 11, 8, 0, 0))).toBe(false);
   });
 
   it("is live today while the sale runs", () => {

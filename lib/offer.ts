@@ -80,7 +80,8 @@ export const SPECIAL20_OFFER: Offer = {
   code: "SPECIAL25",
   percent: 25,
   /** Nov 8 2026, 23:59:59 Pacific (PST, UTC-8) — the same instant as SPECIAL20_SALE.endsAt on the store. */
-  endsAt: Date.UTC(2026, 10, 9, 7, 59, 59),
+  // Nov 10 2026, 23:59:59 Pacific: the store’s code rows were extended two days on 2026-11-08 (was Nov 8).
+  endsAt: Date.UTC(2026, 10, 11, 7, 59, 59),
   endsAtZone: "America/Los_Angeles",
   eyebrow: "November Sale",
   headline: "Your deal is ready",
